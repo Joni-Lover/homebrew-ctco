@@ -1,4 +1,4 @@
-class NetxmsAgent < Formula
+class Netxms < Formula
   desc "Network monitoring solution"
   homepage 'http://www.netxms.org/'
   url 'http://www.netxms.org/download/netxms-2.0-M4.tar.gz'
