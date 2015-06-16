@@ -17,16 +17,11 @@ class Netxms < Formula
     cc_opt = "-I#{HOMEBREW_PREFIX}/include"
     ld_opt = "-L#{HOMEBREW_PREFIX}/lib"
 
-    args = %W[
-          CPP='/usr/bin/gcc -E'
-          CXXCPP='/usr/bin/g++ -E'
-    ]
-
     curl = Formula["curl"]
     cc_opt += " -I#{curl.include}"
     ld_opt += " -L#{curl.lib}"
 
-    system "./configure", *args,
+    system "./configure",
            "--prefix=#{prefix}",
            "--exec-prefix=#{prefix}",
            "--with-snmp",
@@ -46,7 +41,7 @@ class Netxms < Formula
     (var + 'run').mkpath
 
     # Create the working directory:
-    (var + 'lib/netxms').mkpath
+    (lib + 'etc').mkpath
   end
   def plist; <<-EOS.undent
     <?xml version="1.0" encoding="UTF-8"?>
