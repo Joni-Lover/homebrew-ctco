@@ -41,7 +41,7 @@ class Netxms < Formula
     (var + 'run').mkpath
 
     # Create the working directory:
-    ( + 'etc').mkpath
+    (opt_prefix + 'etc').mkpath
   end
 
   plist_options :startup => true
@@ -65,7 +65,7 @@ class Netxms < Formula
       <key>ProgramArguments</key>
       <array>
             <string>-c</string>
-            <string>#{etc}/nxagentd.conf</string>
+            <string>#{opt_prefix}/nxagentd.conf</string>
       </array>
     </dict>
     </plist>
