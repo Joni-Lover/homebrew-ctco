@@ -44,6 +44,7 @@ class Netxms < Formula
   end
 
   plist_options :startup => true
+  plist_options :startup_user => 'root' 
 
   def plist; <<-EOS.undent
     <?xml version="1.0" encoding="UTF-8"?>
