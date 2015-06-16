@@ -41,15 +41,18 @@ class Netxms < Formula
     (var + 'run').mkpath
 
     # Create the working directory:
-    (lib + 'etc').mkpath
+    ( + 'etc').mkpath
   end
+
+  plist_options :startup => true
+
   def plist; <<-EOS.undent
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
     <dict>
       <key>Label</key>
-      <string>netxms.agent</string>
+      <string>#{plist_name}</string>
 
       <key>OnDemand</key><false/>
       <key>KeepAlive</key><true/>
@@ -57,12 +60,12 @@ class Netxms < Formula
       <key>RunAtLoad</key><true/>
 
       <key>Program</key>
-      <string>/opt/local/netxms/bin/nxagentd</string>
+      <string>#{bin}/nxagentd</string>
 
       <key>ProgramArguments</key>
       <array>
             <string>-c</string>
-            <string>/opt/local/netxms/etc/nxagentd.conf</string>
+            <string>#{etc}/nxagentd.conf</string>
       </array>
     </dict>
     </plist>
