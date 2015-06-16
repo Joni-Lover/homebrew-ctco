@@ -18,8 +18,8 @@ class Netxms < Formula
     ld_opt = "-L#{HOMEBREW_PREFIX}/lib"
 
     args = %W[
-          CPP='gcc -E'
-          CXXCPP='g++ -E'
+          CPP='/usr/bin/gcc -E'
+          CXXCPP='/usr/bin/g++ -E'
     ]
 
     curl = Formula["curl"]
