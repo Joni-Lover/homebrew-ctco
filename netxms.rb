@@ -3,6 +3,7 @@ class Netxms < Formula
   homepage 'http://www.netxms.org/'
   url 'http://www.netxms.org/download/netxms-2.0-M4.tar.gz'
   sha256 '77ea23cb2e4048b8116284e15eef9ff13883f6e4f4253242f0707f50ff0b8390'
+  version '2.0-M4'
 
 #  bottle do
 #    sha1 "aa312ee016437c22b7e4955c67defa51c7703540" => :yosemite
@@ -13,18 +14,31 @@ class Netxms < Formula
   depends_on "curl" => :build
 
   def install
-    system "./configure", "CPP='gcc -E' CXXCPP='g++ -E'",
-                          "--prefix=#{prefix}",
-                          "--exec-prefix=#{prefix}",
-                          "--with-snmp",
-                          "--with-agent",
-                          "--with-client",
-                          "--with-internal-libexpat",
-                          "--with-internal-libtre",
-                          "--with-internal-libjansson",
-                          "--with-internal-zlib",
-                          "--with-internal-getopt",
-                          "--with-all-static"
+    cc_opt = "-I#{HOMEBREW_PREFIX}/include"
+    ld_opt = "-L#{HOMEBREW_PREFIX}/lib"
+
+    args = %W[
+          CPP='gcc -E'
+          CXXCPP='g++ -E'
+    ]
+
+    curl = Formula["curl"]
+    cc_opt += " -I#{curl.include}"
+    ld_opt += " -L#{curl.lib}"
+
+    system "./configure", *args,
+           "--prefix=#{prefix}",
+           "--exec-prefix=#{prefix}",
+           "--with-snmp",
+           "--with-agent",
+           "--with-client",
+           "--with-internal-libexpat",
+           "--with-internal-libtre",
+           "--with-internal-libjansson",
+           "--with-internal-zlib",
+           "--with-internal-getopt",
+           "--with-all-static"
+
     system "make"
     system "make install"
 
