@@ -41,6 +41,7 @@ class Netxms < Formula
   def post_install
     # Create the working directory:
     (opt_prefix + 'etc').mkpath
+    (var + name).mkpath
   end
 
   plist_options :startup => true
@@ -54,19 +55,20 @@ class Netxms < Formula
       <key>Label</key>
       <string>#{plist_name}</string>
 
-      <key>OnDemand</key><false/>
+      <key>OnDemand</key><true/>
       <key>KeepAlive</key><true/>
       <key>Disabled</key><false/>
       <key>RunAtLoad</key><true/>
 
-      <key>Program</key>
-      <string>#{bin}/nxagentd</string>
-
       <key>ProgramArguments</key>
       <array>
+            <string>#{bin}/nxagentd</string>
+            <string>-d</string>
             <string>-c</string>
             <string>#{opt_prefix}/nxagentd.conf</string>
       </array>
+      <key>WorkingDirectory</key>
+      <string>#{var}/netxms</string>
     </dict>
     </plist>
     EOS
