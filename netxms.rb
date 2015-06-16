@@ -10,7 +10,7 @@ class Netxms < Formula
 #    sha1 "400280627f03404732bf3db7a5612bfab5fe3876" => :mavericks
 #    sha1 "9ac0bc82522ce93b349a71d2f0cfeac4d6501545" => :mountain_lion
 #  end
- 
+
   depends_on "curl" => :build
 
   def install
@@ -36,10 +36,9 @@ class Netxms < Formula
 
     system "make"
     system "make install"
+  end
 
-    # Ensure var/run exists:
-    (var + 'run').mkpath
-
+  def post_install
     # Create the working directory:
     (opt_prefix + 'etc').mkpath
   end
@@ -70,6 +69,5 @@ class Netxms < Formula
     </dict>
     </plist>
     EOS
-  end  
+  end
 end
-
